@@ -7,8 +7,6 @@ import java.io.Reader;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
@@ -31,8 +29,7 @@ class GoogleService {
      */
     protected static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     /** . */
-    @Autowired
-    private Config configuration;
+    private Config configuration = new Config();
     /**
      * Global instance of the scopes required by this quickstart. If modifying these scopes, delete your previously
      * saved tokens/ folder.
@@ -48,7 +45,7 @@ class GoogleService {
      * @throws IOException If the credentials.json file cannot be found.
      */
 
-    protected Credential getCredentials(final NetHttpTransport httptransport, final String userKey) throws IOException {
+    public Credential getCredentials(final NetHttpTransport httptransport, final String userKey) throws IOException {
         // final int port = 8888;
         scopes.add(GmailScopes.GMAIL_READONLY);
         scopes.add(PeopleServiceScopes.CONTACTS_READONLY);
@@ -64,10 +61,16 @@ class GoogleService {
                 clientSecrets, scopes)
                         .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(configuration.getTokenFolder())))
                         .setAccessType("offline").build();
+
 //        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(port).build();
 //        return new AuthorizationCodeInstalledApp(flow, receiver).authorize(userKey);
+        System.out.println("------------------");
+        System.out.println(flow.loadCredential(userKey).getRefreshToken() + "   "
+                + flow.loadCredential(userKey).getExpirationTimeMilliseconds());
+        System.out.println("------------------");
         return flow.loadCredential(userKey);
     }
+
 
     /**
      * @return .

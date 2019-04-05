@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<title>Admin DaP</title>
+		<link rel="stylesheet" type="text/css" th:href="@{css/dap.css}" href="../static/css/dap.css">
+	</head>
+	
+	<body>
+		<div>
+			<ul>
+				<li th:each="data : ${informations}"><span th:text="${data}"></span></li>
+			</ul>
+		</div>
+	</body>
+	
+</html>
