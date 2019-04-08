@@ -17,13 +17,25 @@ import com.google.api.client.util.store.DataStore;
  */
 @Service
 public class CredentialService extends GoogleService {
-    GoogleService gs = new GoogleService();
-
     public DataStore<StoredCredential> listUser() throws GeneralSecurityException, IOException {
         DataStore<StoredCredential> datas = getFlow().getCredentialDataStore();
-
         return datas;
     }
 
-
+    //    public String deleteAccount(@PathVariable final String userId) throws GeneralSecurityException {
+    //
+    //        String response;
+    //     
+    //                // redirect to the authorization flow
+    //        final AuthorizationCodeRequestUrl authorizationUrl = getFlow().AuthorizationUrl();
+    //
+    //                // store userId in session for CallBack Access
+    //
+    //        response = authorizationUrl.remove("userId", userId);
+    //
+    //        return response;
+    //    }
 }
+
+
+

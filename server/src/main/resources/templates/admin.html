@@ -7,9 +7,35 @@
 	<body>
 		<div>
 			<ul>
-				<li th:each="data : ${informations}"><span th:text="${data}"></span></li>
+				
 			</ul>
+			<table border="0" bgcolor="white" align="center" cellpading=0 cellspacing=0 width=70%>
+
+				<!-- Entete Tableau-->
+				<tr bgcolor=#8b807a border="1" bordercolor=#848484>
+					<td width="5%" id="enteteTableau">Id</td>
+					<td width="30%" id="enteteTableau">Token</td>
+					<td width="10%" id="enteteTableau">Expire dans</td>
+					<td width="30%" id="enteteTableau">RefreshToken</td>
+					<td widht="10%" id="enteteTableau">Gestion User</td>
+				</tr>
+
+				<!-- Lignes Tableau-->
+				
+				<tr th:each="entry: ${informations}">
+						<td width="5%" class="ligneTableau" th:text="${entry.key}"></span></td>
+						<td width="30%" class="ligneTableau" th:text="${entry.value.accessToken}"></s)an></td>
+						<td width="10%" class="ligneTableau" th:text="${entry.value.expirationTimeMilliseconds} + '  jours'"></span></td>
+						<td widht="10%" class="ligneTableau" th:text="${entry.value.getRefreshToken()}"></span></td>
+						<td widht="10%" class="ligneTableau" th:action="@{/deleteAccount/}"><button>Supprimer</button></td>
+						
+						<!--<td class="ligneTableau" th:text="${entry.value.}"></span></td>-->
+				</tr>
+
+			</table>
+			
+
 		</div>
-	</body>
-	
+
+	</body>  
 </html>

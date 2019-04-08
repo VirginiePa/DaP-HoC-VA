@@ -7,6 +7,8 @@ import java.io.Reader;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
@@ -29,7 +31,8 @@ class GoogleService {
      */
     protected static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     /** . */
-    private Config configuration = new Config();
+    @Autowired
+    private Config configuration;
     /**
      * Global instance of the scopes required by this quickstart. If modifying these scopes, delete your previously
      * saved tokens/ folder.

@@ -1,3 +1,18 @@
-div {
-    border:2px solid coral;
+font {
+    font-family : calibri;
+    font-size : 14px;
+    color:gray;
+}
+#enteteTableau {
+    text-align: center;
+    font-family : calibri;
+    font-size : 14px;
+    color:white;
+}
+.ligneTableau {
+    text-align: left;
+    padding: 2%;
+    font-family : calibri;
+    font-size : 14px;
+    border: 1px solid gray; 
 }
