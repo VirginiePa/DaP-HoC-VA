@@ -1,6 +1,8 @@
 /**
- * 
+ * @author Virginie et Armand.
+ *
  */
+
 package fr.hoc.dap.server.controller;
 
 import java.util.ArrayList;
@@ -10,10 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * @author house
- *
- */
 @Controller
 public class HelloController {
 

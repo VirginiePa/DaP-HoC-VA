@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.hoc.dap.server.service;
 
 import java.io.IOException;
@@ -12,29 +9,22 @@ import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.util.store.DataStore;
 
 /**
- * @author house
+ * @author Virginie et Armand.
  *
- */
+ * Returns the data stored by google. */
+
 @Service
 public class CredentialService extends GoogleService {
+     /**
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
+     * @throws IOException if credentials aren't valid or file not found.
+     * @return Store Credential.
+     */
     public DataStore<StoredCredential> listUser() throws GeneralSecurityException, IOException {
         DataStore<StoredCredential> datas = getFlow().getCredentialDataStore();
         return datas;
     }
-
-    //    public String deleteAccount(@PathVariable final String userId) throws GeneralSecurityException {
-    //
-    //        String response;
-    //     
-    //                // redirect to the authorization flow
-    //        final AuthorizationCodeRequestUrl authorizationUrl = getFlow().AuthorizationUrl();
-    //
-    //                // store userId in session for CallBack Access
-    //
-    //        response = authorizationUrl.remove("userId", userId);
-    //
-    //        return response;
-    //    }
 }
 
 

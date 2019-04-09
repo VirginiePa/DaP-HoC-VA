@@ -1,3 +1,7 @@
+/**
+ * @author Virginie et Armand.
+ *
+ */
 package fr.hoc.dap.server.service;
 
 import java.io.IOException;
@@ -19,19 +23,20 @@ import com.google.api.services.calendar.model.Events;
 /** Pour se connecter au service Calendar et récupérer les évènements. */
 @Service
 public final class CalendarService extends GoogleService {
-    /** . */
+    /** instanciates the log manager. */
     private static final Logger LOG = LogManager.getLogger();
 
-    /** . */
+    /** declare the max number of events as a constant. */
     private static final Integer NBMAX = 10;
 
     /**
      * Build a new authorized API client service.
      *
-     * @return httptransp.
+     * @return a service.
      * @param userKey : compte Google.
-     * @throws GeneralSecurityException : is a generic security exception.
-     * @throws IOException              : there is an I/O exception of some sort.
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
+     * @throws IOException if credentials aren't valid or file not found.
      */
     public Calendar getService(final String userKey) throws GeneralSecurityException, IOException {
         final NetHttpTransport httptransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -45,13 +50,12 @@ public final class CalendarService extends GoogleService {
      * @param userKey : compte Google.
      * @return the next 10 events from the primary calendar.
      * @param maxResults : nombre d'évènements max, ici = 10.
-     * @throws IOException              : if the credentials.json file cannot be found.
-     * @throws GeneralSecurityException : is a generic security exception.
+     * @throws IOException if credentials aren't valid or file not found.
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
      */
     public List<String> getNextEvents(final Integer maxResults, final String userKey)
             throws IOException, GeneralSecurityException {
-
-        LOG.info("First getNextEvents line reached");
         DateTime now = new DateTime(System.currentTimeMillis());
         Events events = getService(userKey).events().list("primary").setMaxResults(NBMAX).setTimeMin(now)
                 .setOrderBy("startTime").setSingleEvents(true).execute();
@@ -59,9 +63,9 @@ public final class CalendarService extends GoogleService {
         List<String> test = new ArrayList<String>();
         List<Event> items = events.getItems();
         if (items.isEmpty()) {
-            System.out.println("No upcoming events found.");
+            LOG.error("items list is empty");
         } else {
-            System.out.println("Upcoming events");
+            LOG.info("upcoming events found");
             int a = 0;
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();

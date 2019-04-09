@@ -7,6 +7,8 @@ import java.io.Reader;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -22,17 +24,25 @@ import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.people.v1.PeopleServiceScopes;
 
 /**
- * @author moi. Classe autorisant l'accees.
+ * @author Virginie et Armand.
+ *
+ * Classe autorisant l'accès.
  */
 class GoogleService {
+    /** Instanciates the logger. */
+    private static final Logger LOG = LogManager.getLogger();
 
     /**
      * . json factory instanciation
      */
     protected static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    /** . */
+
+    /**
+     * Injecte une instance du bean créé dans Application .
+     * */
     @Autowired
     private Config configuration;
+
     /**
      * Global instance of the scopes required by this quickstart. If modifying these scopes, delete your previously
      * saved tokens/ folder.
@@ -45,9 +55,8 @@ class GoogleService {
      * @param httptransport The network HTTP Transport.
      * @param userKey       .
      * @return An authorized Credential object.
-     * @throws IOException If the credentials.json file cannot be found.
+     * @throws IOException if credentials aren't valid or file not found.
      */
-
     public Credential getCredentials(final NetHttpTransport httptransport, final String userKey) throws IOException {
         // final int port = 8888;
         scopes.add(GmailScopes.GMAIL_READONLY);
@@ -57,6 +66,11 @@ class GoogleService {
 
         // Load client secrets.
         File in = new java.io.File(configuration.getCreditFilePath());
+
+        if (in.length() == 0) {
+            LOG.debug("Failed to initialize file input.Check if configuration autowired is null.");
+        }
+
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new FileReader(in));
 
         // Build flow and trigger user authorization request.
@@ -65,20 +79,17 @@ class GoogleService {
                         .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(configuration.getTokenFolder())))
                         .setAccessType("offline").build();
 
-//        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(port).build();
-//        return new AuthorizationCodeInstalledApp(flow, receiver).authorize(userKey);
-        System.out.println("------------------");
-        System.out.println(flow.loadCredential(userKey).getRefreshToken() + "   "
-                + flow.loadCredential(userKey).getExpirationTimeMilliseconds());
-        System.out.println("------------------");
+        if (flow == null) {
+            LOG.error("Error initializing flow");
+        }
         return flow.loadCredential(userKey);
     }
 
-
     /**
-     * @return .
-     * @throws GeneralSecurityException .
-     * @throws IOException              .
+     * @return a flow
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
+     * @throws IOException if credentials aren't valid or file not found.
      */
     public GoogleAuthorizationCodeFlow getFlow() throws GeneralSecurityException, IOException {
         scopes.add(GmailScopes.GMAIL_READONLY);
@@ -87,23 +98,35 @@ class GoogleService {
         scopes.add(CalendarScopes.CALENDAR_READONLY);
         final NetHttpTransport httptransport = GoogleNetHttpTransport.newTrustedTransport();
         File in = new java.io.File(configuration.getCreditFilePath());
+
+        if (in.length() == 0) {
+            LOG.debug("Failed to initialize file input.Check if configuration autowired is null.");
+        }
+
         Reader targetReader = new FileReader(in);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, targetReader);
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(httptransport, JSON_FACTORY,
                 clientSecrets, scopes)
                         .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(configuration.getTokenFolder())))
                         .setAccessType("offline").build();
+
+        if (flow == null) {
+            LOG.error("Error initializing flow");
+        }
+
         return flow;
     }
 
     /**
-     * @param config .
+     * @param config sets a config .
      */
     public void setConfig(final Config config) {
         this.configuration = config;
     }
 
-    /** @return . */
+    /**
+     * @return a config .
+     */
     public Config getConfig() {
         return this.configuration;
     }

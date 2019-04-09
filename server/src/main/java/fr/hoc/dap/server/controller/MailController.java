@@ -1,3 +1,7 @@
+/**
+ * @author Virginie et Armand.
+ *
+ */
 package fr.hoc.dap.server.controller;
 
 import java.io.IOException;
@@ -16,15 +20,16 @@ import fr.hoc.dap.server.service.GMailService;
  */
 @RestController
 public class MailController {
-    /** Acces to Gmail API. */
+    /** instanciates a service of GMailService type. */
     @Autowired
     private GMailService gmail;
 
     /**
      * @return le nombre de mail non lus du userKey.
      * @param userKey : compte Google à renseigner dans l'URL.
-     * @throws GeneralSecurityException : is a generic security exception.
-     * @throws IOException              : there is an I/O exception of some sort.
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
+     * @throws IOException if credentials aren't valid or file not found.
      * @throws NumberFormatException    : the application has attempted to a numeric
      *                                  types and not to a string.
      */

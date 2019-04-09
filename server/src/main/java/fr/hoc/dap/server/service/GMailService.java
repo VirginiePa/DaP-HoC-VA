@@ -1,3 +1,7 @@
+/**
+ * @author Virginie et Armand.
+ *
+ */
 package fr.hoc.dap.server.service;
 
 import java.io.IOException;
@@ -29,8 +33,9 @@ public final class GMailService extends GoogleService {
     /**
      * @return the gmail service.
      * @param userKey : compte Google.
-     * @throws GeneralSecurityException : if security related class problem.
-     * @throws IOException              : if credentials problem.
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
+     * @throws IOException if credentials aren't valid or file not found.
      */
     public Gmail getService(final String userKey) throws GeneralSecurityException, IOException {
         final NetHttpTransport httptransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -57,9 +62,10 @@ public final class GMailService extends GoogleService {
     /**
      * @return the number of unread emails
      * @param userKey : compte Google.
-     * @throws IOException              : if credentials aren't good.
+     * @throws IOException if credentials aren't valid or file not found.
      * @throws NumberFormatException    : the application has attempted to a numeric types and not to a string.
-     * @throws GeneralSecurityException : if security related class problem.
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
      */
     public Integer getNumberUnreadEmails(final String userKey)
             throws IOException, NumberFormatException, GeneralSecurityException {
@@ -70,7 +76,7 @@ public final class GMailService extends GoogleService {
      * @param service   googleservice.
      * @param userId    ID du compte Google.
      * @param messageId messageId.
-     * @throws IOException if credentials aren't valid.
+     * @throws IOException if credentials aren't valid or file not found.
      * @return theMessage.
      */
     public Message getMessage(final Gmail service, final String userId, final String messageId) throws IOException {
@@ -85,7 +91,7 @@ public final class GMailService extends GoogleService {
      * @param service googleservice.
      * @param userId  userId.
      * @param query   query.
-     * @throws IOException if credentials aren't valid.
+     * @throws IOException if credentials aren't valid or file not found.
      * @return theMessage.
      */
     public List<Message> listMessagesMatchingQuery(final Gmail service, final String userId, final String query)

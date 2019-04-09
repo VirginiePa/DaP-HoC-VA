@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Admin DaP</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<link rel="stylesheet" type="text/css" th:href="@{css/dap.css}" href="../static/css/dap.css">
 	</head>
 	
@@ -13,21 +14,19 @@
 
 				<!-- Entete Tableau-->
 				<tr bgcolor=#8b807a border="1" bordercolor=#848484>
-					<td width="5%" id="enteteTableau">Id</td>
-					<td width="30%" id="enteteTableau">Token</td>
-					<td width="10%" id="enteteTableau">Expire dans</td>
-					<td width="30%" id="enteteTableau">RefreshToken</td>
-					<td widht="10%" id="enteteTableau">Gestion User</td>
+					<td  width="30%" id="enteteTableau">Id</td>
+					<td   id="enteteTableau">Token</td>
+					<td   id="enteteTableau">Expire dans</td>
+					<td   id="enteteTableau">RefreshToken</td>
 				</tr>
 
 				<!-- Lignes Tableau-->
 				
 				<tr th:each="entry: ${informations}">
-						<td width="5%" class="ligneTableau" th:text="${entry.key}"></span></td>
-						<td width="30%" class="ligneTableau" th:text="${entry.value.accessToken}"></s)an></td>
-						<td width="10%" class="ligneTableau" th:text="${entry.value.expirationTimeMilliseconds} + '  jours'"></span></td>
-						<td widht="10%" class="ligneTableau" th:text="${entry.value.getRefreshToken()}"></span></td>
-						<td widht="10%" class="ligneTableau" th:action="@{/deleteAccount/}"><button>Supprimer</button></td>
+						<td   class="ligneTableau" th:text="${entry.key}"></span></td>
+						<td   class="ligneTableau" th:text="${entry.value.accessToken}"></s)an></td>
+						<td  class="ligneTableau"  th:text="${entry.value.expirationTimeMilliseconds} + '  jours'"></span></td>
+						<td  class="ligneTableau" th:text="${entry.value.getRefreshToken()}"></span></td>
 						
 						<!--<td class="ligneTableau" th:text="${entry.value.}"></span></td>-->
 				</tr>

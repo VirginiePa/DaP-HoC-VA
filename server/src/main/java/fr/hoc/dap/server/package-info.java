@@ -1,5 +1,5 @@
 /**
- * @author house
- * package info
+ * @author Virginie et Armand.
+ *
  */
 package fr.hoc.dap.server;

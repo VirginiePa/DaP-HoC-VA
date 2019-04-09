@@ -1,3 +1,7 @@
+/**
+ * @author Virginie et Armand.
+ *
+ */
 package fr.hoc.dap.server.service;
 
 import java.io.IOException;
@@ -15,9 +19,10 @@ import com.google.api.services.people.v1.model.Person;
 public final class PeoplService extends GoogleService {
 
     /**
-     * @return .
-     * @throws GeneralSecurityException .
-     * @throws IOException              .
+     * @return a serice
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
+     * @throws IOException If the credentials.json file cannot be found.
      */
     public PeopleService getService() throws GeneralSecurityException, IOException {
         final NetHttpTransport httptransport = GoogleNetHttpTransport.newTrustedTransport();

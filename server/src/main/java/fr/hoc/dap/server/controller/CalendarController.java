@@ -1,3 +1,7 @@
+/**
+ * @author Virginie et Armand.
+ *
+ */
 package fr.hoc.dap.server.controller;
 
 import java.io.IOException;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.hoc.dap.server.service.CalendarService;
 
 /**
+ *  * @author Virginie et Armand
+ *
  * Classe REST controller : elle traite les requêtes via http et va renvoyer les
  * prochains évènements en json via la méthode nextEvents.
  */
@@ -25,8 +31,9 @@ public class CalendarController {
      * @return les prochains évènements du userKey.
      * @param userKey : compte Google à renseigner dans l'URL.
      * @param eventNb : nombre d'évènement par défaut = 1.
-     * @throws GeneralSecurityException : is a generic security exception.
-     * @throws IOException              : there is an I/O exception of some sort.
+     * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
+     * message.
+     * @throws IOException if credentials aren't valid or file not found.
      * @throws NumberFormatException    : the application has attempted to a numeric
      *                                  types and not to a string.
      */
