@@ -9,10 +9,10 @@ font {
     font-size : 14px;
     color:white;
 }
+
 .ligneTableau {
     text-align: left;
-    padding: 2%;
     font-family : calibri;
-    font-size : 14px;
+    font-size : 1vw;
     border: 1px solid gray; 
 }
