@@ -1,12 +1,13 @@
 /**
+ * //TODO VA by Djer |JavaDoc| Devrait être sur la JavaDoc de la classe.
  * @author Virginie et Armand.
- *
  */
 package fr.hoc.dap.server.service;
 
 /**
  * Pour modifier la configuration. */
 public class Config {
+
     /** Fichier de permissions acceptées. */
     private static final String TOKEN_DIR = System.getProperty("user.home") + "\\dap\\tokens";
     /** Fichier de config api. */
@@ -29,6 +30,7 @@ public class Config {
     }
 
     /**
+     *  //TODO VA by Djer |JavaDoc| Il manque la description (du constructeur) : première ligne de la JavaDoc
      * @param tf  token folder
      * @param cfp credentials file path
      * @param an  application name
@@ -88,5 +90,4 @@ public class Config {
     public void setCreditFilePath(final String newName) {
         this.credFilePath = newName;
     }
-
 }

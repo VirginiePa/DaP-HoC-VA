@@ -1,6 +1,6 @@
 /**
+ * //TODO VA by Djer |JavaDoc| Devrait être sur la JavaDoc de la classe.
  * @author Virginie et Armand.
- *
  */
 package fr.hoc.dap.server.controller;
 
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.hoc.dap.server.service.CalendarService;
 
 /**
- *  * @author Virginie et Armand
- *
+ * @author Virginie et Armand
+ * //TODO VA by Djer |JavaDoc| La "description" DOIT ête la première ligne de la JavaDoc
  * Classe REST controller : elle traite les requêtes via http et va renvoyer les
- * prochains évènements en json via la méthode nextEvents.
+ * prochins évènements en json via la méthode nextEvents.
  */
 @RestController
 public class CalendarController {
@@ -28,6 +28,7 @@ public class CalendarController {
     private CalendarService calendar;
 
     /**
+     * //TODO VA by Djer |JavaDoc| Il manque la description (de la méthode) : première ligne de la JavaDoc
      * @return les prochains évènements du userKey.
      * @param userKey : compte Google à renseigner dans l'URL.
      * @param eventNb : nombre d'évènement par défaut = 1.
@@ -43,5 +44,4 @@ public class CalendarController {
             throws NumberFormatException, IOException, GeneralSecurityException {
         return calendar.getNextEvents(eventNb, userKey);
     }
-
 }
