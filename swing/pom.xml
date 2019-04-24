@@ -1,59 +1,66 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>fr.hoc.dap</groupId>
-  <artifactId>SwingClientButtons</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <name>dap_hoc_swing_VA</name>
+	<groupId>fr.hoc.dap</groupId>
+	<artifactId>SwingClientButtons</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>dap_hoc_swing_VA</name>
 
-  <url>http://maven.apache.org</url>
+	<url>http://maven.apache.org</url>
 
-  <properties>
-  	<pmdVersion>6.4.0</pmdVersion>
+	<properties>
+		<pmdVersion>6.4.0</pmdVersion>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<java.version>1.8</java.version> <!-- rajouter pour spring -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-  <parent> <!-- rajouter pour spring -->
-		<groupId>org.springframework.boot</groupId> 
+	<!-- TODO VA by Djer |Maven| Spring Boot n'est pas utile dans ce projet 
+		"Swing". Vous pouriez éventuellement utilsier Spring pour qu'il créer le 
+		"ubberJar" (éxécutable" mais il vous faudrait un @SpringBootApplication sur 
+		votre classe Laucncher -->
+	<parent> <!-- rajouter pour spring -->
+		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.5.RELEASE</version>
 	</parent>
 
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version><!--$NO-MVN-MAN-VER$-->
-      <scope>test</scope>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version><!--$NO-MVN-MAN-VER$ -->
+			<scope>test</scope>
+		</dependency>
 
-    <dependency> <!-- rajouter pour spring -->
-			<groupId>org.springframework.boot</groupId> 
+		<!-- TODO VA by Djer |Maven| Tu n'utilises pas de "Web" ici donc dépendance 
+			inutile. Le "web" dans Spring sous-ented "SERVER web" -->
+		<dependency> <!-- rajouter pour spring -->
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-    <dependency>
+		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-			<version>2.9.1</version><!--$NO-MVN-MAN-VER$-->
+			<version>2.9.1</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.9.1</version><!--$NO-MVN-MAN-VER$-->
+			<version>2.9.1</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
-  </dependencies>
+	</dependencies>
 
-  	<build>
+	<build>
 		<plugins>
-		    <plugin> <!-- rajouter pour spring -->
+			<plugin> <!-- rajouter pour spring -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
@@ -92,8 +99,6 @@
 		</pluginManagement>
 	</build>
 
-
-
 	<reporting>
 		<plugins>
 			<plugin>
@@ -105,6 +110,8 @@
 					<skipEmptyReport>false</skipEmptyReport>
 					<minimumTokens>75</minimumTokens>
 					<rulesets>
+						<!-- TODO VA by Djer |Audit Code| Il faut que ce fichier existe si 
+							tu l'indiques comme fichier de règles ! -->
 						<ruleset>/pmd/dap_pmd.xml</ruleset>
 					</rulesets>
 				</configuration>
@@ -123,5 +130,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
-  
+
 </project>
