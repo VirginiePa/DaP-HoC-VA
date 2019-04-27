@@ -1,5 +1,7 @@
+//TODO VA by Djer |JavaDoc| Devrait être sur classe
 /**
- * @author Virginie et Armand.
+/**
+* @author Virginie et Armand.
  *
  */
 package fr.hoc.dap.server.service;

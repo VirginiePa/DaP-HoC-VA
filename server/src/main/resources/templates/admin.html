@@ -1,40 +1,49 @@
 <html>
-	<head>
-		<title>Admin DaP</title>
-		<meta name="viewport" content="width=device-width, user-scalable=no">
-		<link rel="stylesheet" type="text/css" th:href="@{css/dap.css}" href="../static/css/dap.css">
-	</head>
-	
-	<body>
-		<div>
-			<ul>
-				
-			</ul>
-			<table border="0" bgcolor="white" align="center" cellpading=0 cellspacing=0 width=70%>
+<head>
+<title>Admin DaP</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<link rel="stylesheet" type="text/css" th:href="@{css/dap.css}"
+	href="../static/css/dap.css">
+</head>
 
-				<!-- Entete Tableau-->
-				<tr bgcolor=#8b807a border="1" bordercolor=#848484>
-					<td  width="10%" id="enteteTableau">Id</td>
-					<td    width="40%"id="enteteTableau">Token</td>
-					<td   width="10%" id="enteteTableau">Expire dans</td>
-					<td   width="40%" id="enteteTableau">RefreshToken</td>
-				</tr>
+<body>
+	<div>
+		<!-- TODO VA by Djer |Thymeleaf| Ce "UL" vide ne sert plus, supprime-le-->
+		<ul>
 
-				<!-- Lignes Tableau-->
-				
-				<tr th:each="entry: ${informations}">
-						<td   width="10%" class="ligneTableau" th:text="${entry.key}"></span></td>
-						<td   width="40%" class="ligneTableau" th:text="${entry.value.accessToken}"></s)an></td>
-						<td   width="10%" class="ligneTableau"  th:text="${entry.value.expirationTimeMilliseconds} + '  jours'"></span></td>
-						<td  width="40%"  class="ligneTableau" th:text="${entry.value.getRefreshToken()}"></span></td>
-						
-						<!--<td class="ligneTableau" th:text="${entry.value.}"></span></td>-->
-				</tr>
+		</ul>
+		<!-- TODO VA by Djer |Thymeleaf| on evite d'utilsier les attributs (border, bgcolor,...) directement dnas le HTML on les précise dnas les CSS -->
+		<table border="0" bgcolor="white" align="center" cellpading=0
+			cellspacing=0 width=70%>
 
-			</table>
-			
+			<!-- TODO VA by Djer |thymeleaf| Tu peux éviter ce commentaire en utilisant la balise <thead> pour tes lignes d'entete, deplus <thead> est copréhenssible par ton naviguateur qui pourra "comprendre" a quoi servent cet ligne-->
+			<!-- Entete Tableau-->
+			<tr bgcolor=#8b807a border="1" bordercolor=#848484>
+				<td width="10%" id="enteteTableau">Id</td>
+				<td width="40%" id="enteteTableau">Token</td>
+				<td width="10%" id="enteteTableau">Expire dans</td>
+				<td width="40%" id="enteteTableau">RefreshToken</td>
+			</tr>
 
-		</div>
+			<!-- TODO VA by Djer |Thymeleaf| Tu peux éviter ce commentaire en utilisant la balise <tbody> pour tes lignes de "corp de tableau", deplus <tbody> est copréhenssible par ton naviguateur qui pourra "comprendre" a quoi servent ces lignes-->
+			<!-- Lignes Tableau-->
+			<tr th:each="entry: ${informations}">
+				<!-- TODO VA by Djer |Thymeleaf| Le "fin de span" ne cloture pas un "début de span" (tu peux supprimer "</span>") -->
+				<td width="10%" class="ligneTableau" th:text="${entry.key}"></span></td>
+				<!-- TODO VA by Djer |Thymeleaf| Erreuer sur "</s)an>" -->
+				<td width="40%" class="ligneTableau"
+					th:text="${entry.value.accessToken}"></s)an></td>
+				<!-- TODO VA by Djer |Thymeleaf| Le "fin de span" ne cloture pas un "début de span" (tu peux supprimer "</span>") -->
+				<td width="10%" class="ligneTableau"
+					th:text="${entry.value.expirationTimeMilliseconds} + '  jours'"></span></td>
+				<!-- TODO VA by Djer |Thymeleaf| Le "fin de span" ne cloture pas un "début de span" (tu peux supprimer "</span>") -->
+				<td width="40%" class="ligneTableau"
+					th:text="${entry.value.getRefreshToken()}"></span></td>
 
-	</body>  
+				<!--<td class="ligneTableau" th:text="${entry.value.}"></span></td>-->
+			</tr>
+
+		</table>
+	</div>
+</body>
 </html>

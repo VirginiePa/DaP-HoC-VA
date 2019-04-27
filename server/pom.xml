@@ -5,14 +5,16 @@
 	<groupId>fr.hoc.dap</groupId>
 	<artifactId>server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>dap_hoc_VA</name>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<pmdVersion>6.4.0</pmdVersion>
+		<!-- TODO VA by Djer |Maven| la propriété "java.version" est un "raccourci" 
+			(spring Boot) pour les deux propiétés suivantes -->
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
-
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -42,6 +44,8 @@
 			<version>1.23.0</version>
 		</dependency>
 
+		<!-- TODO VA by Djer |Maven| Cette dependance n'est plus utiel depuis que 
+			l'on gère nous même le "/OAuth2Callback" (version Server) -->
 		<dependency>
 			<groupId>com.google.oauth-client</groupId>
 			<artifactId>google-oauth-client-jetty</artifactId>
@@ -79,7 +83,6 @@
 		</dependency>
 
 	</dependencies>
-
 
 	<build>
 		<plugins>
@@ -135,10 +138,7 @@
 	</build>
 
 	<reporting>
-
 		<plugins>
-
-
 			<plugin>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.10.0</version>

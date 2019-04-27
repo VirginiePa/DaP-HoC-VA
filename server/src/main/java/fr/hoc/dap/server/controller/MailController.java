@@ -15,18 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.hoc.dap.server.service.GMailService;
 
 /**
+ * //TODO VA by Djer |JavaDoc| Evite de parler des méthodes dans la JavaDoc de la classe, Si tu ajoutes des méhodes il faudra la modifier. "Classe communiquant les informatiosn sur les e-mails" serait suffisant
  * Classe REST controller : elle traite les requêtes via http et va renvoyer le
  * nombre de mails non lus en json via la méthode Index.
  */
 @RestController
 public class MailController {
+    //TODO VA by Djer |JavaDoc| Faux (n'instanciate pas du tout, au "mieux" réserve de la mémoire pour) et inutile (le Type est autpatiquement extrait par JavaDoc). "The CredentialService" est suffisant (les curieux pourront allez lire la documentation de la lcasse "CredentialService").
     /** instanciates a service of GMailService type. */
     @Autowired
     private GMailService gmail;
 
     /**
+     * //TODO VA by Djer |JavaDoc| Il manque la description (de la méthode) : première ligne de la JavaDoc
      * @return le nombre de mail non lus du userKey.
-     * @param userKey : compte Google à renseigner dans l'URL.
+     * @param userKey : compte Google à renseigner dans l'URL. //TODO VA by Djer |JavaDoc| C'est le compte **DaP** qu'il faut indiquer, pas celui de "Google"
      * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
      * message.
      * @throws IOException if credentials aren't valid or file not found.
