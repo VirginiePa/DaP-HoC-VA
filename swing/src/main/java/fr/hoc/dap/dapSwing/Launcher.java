@@ -1,8 +1,11 @@
 package fr.hoc.dap.dapSwing;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 /**
@@ -20,12 +23,13 @@ public class Launcher {
 
     /**
      * 
-     * @param desiredUrl : connexion. //TODO VA by Djer |JavaDoc| "URL pour récupérer les données" serait mieu
-     * @return informations de l'Url. //TODO VA by Djer |JavaDoc| "Contenu (body) de la réponse à la requete" serait mieu
-     * @throws Exception si erreurs.
+     * @param desiredUrl : URL pour récupérer les données.
+     * @return Contenu (body) de la réponse à la requete.
+     * @throws MalformedURLException .
+     * @throws ProtocolException si erreurs.
+     * @throws IOException si erreurs.
      */
-    //TODO VA by Djer |Gestion Exception| Eviter de "throws" Exception qui est un peu trop global. Il est possible d'être plus spécifique (Eclipse peu vous aider)
-    public static String getData(final String desiredUrl) throws Exception {
+    public static String getData(final String desiredUrl) throws MalformedURLException, ProtocolException, IOException {
         URL url = new URL(desiredUrl);
         // Nous nous connectons au site en question
         HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();

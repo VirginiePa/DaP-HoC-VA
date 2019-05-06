@@ -4,7 +4,7 @@
   <local-check-config name="chkstyl" location="C:\Users\house\Desktop\server\chkstyl.xml" type="external" description="">
     <additional-data name="protect-config-file" value="false"/>
   </local-check-config>
-  <fileset name="all" enabled="true" check-config-name="DaP Server HOC_VA" local="false">
+  <fileset name="all" enabled="true" check-config-name="dap serveur" local="false">
     <file-match-pattern match-pattern="." include-pattern="true"/>
   </fileset>
 </fileset-config>

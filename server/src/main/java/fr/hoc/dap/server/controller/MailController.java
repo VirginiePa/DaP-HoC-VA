@@ -29,7 +29,7 @@ public class MailController {
     /**
      * //TODO VA by Djer |JavaDoc| Il manque la description (de la méthode) : première ligne de la JavaDoc
      * @return le nombre de mail non lus du userKey.
-     * @param userKey : compte Google à renseigner dans l'URL. //TODO VA by Djer |JavaDoc| C'est le compte **DaP** qu'il faut indiquer, pas celui de "Google"
+     * @param userKey : compte DAP à renseigner dans l'URL.
      * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
      * message.
      * @throws IOException if credentials aren't valid or file not found.

@@ -1,8 +1,3 @@
-/**
- * //TODO VA by Djer |JavaDoc| Devrait être sur la JavaDoc de la classe.
- * @author Virginie et Armand.
- */
-
 package fr.hoc.dap.server.controller;
 
 import java.util.ArrayList;
@@ -12,13 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//TODO VA by Djer |JavaDoc| Il manque la JavaDoc
+//TODO VA by Djer |JavaDoc| Il manque la JavaDoc.
+/**
+ *
+ * @author Virginie et Armand.
+ *
+ */
 @Controller
 public class HelloController {
 
     /**
-     * //TODO VA by Djer |JavaDoc| Il manque la description (de la méthode) : première ligne de la JavaDoc
+     * //TODO VA by Djer |JavaDoc| Il manque la description (de la méthode) : première ligne de la JavaDoc.
      * @param args
+     * @return une chaîne de texte
      */
     @RequestMapping("/hello2")
     public String hello(ModelMap model) {

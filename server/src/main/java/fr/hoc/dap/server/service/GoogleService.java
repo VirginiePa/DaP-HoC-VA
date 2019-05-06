@@ -56,35 +56,11 @@ class GoogleService {
      * @param userKey       .
      * @return An authorized Credential object.
      * @throws IOException if credentials aren't valid or file not found.
+     * @throws GeneralSecurityException 
      */
-    public Credential getCredentials(final NetHttpTransport httptransport, final String userKey) throws IOException {
-        //TODO VA by Djer |POO| Jusqu'a la ligne 86 est un copier/coller de "getFlow". Appeles la méthode getFlow pour créer un "GoogleAuthorizationCodeFlow", puis le load crédential sur cet object.
-        // final int port = 8888;
-        scopes.add(GmailScopes.GMAIL_READONLY);
-        scopes.add(PeopleServiceScopes.CONTACTS_READONLY);
-        scopes.add(GmailScopes.GMAIL_LABELS);
-        scopes.add(CalendarScopes.CALENDAR_READONLY);
-
-        // Load client secrets.
-        File in = new java.io.File(configuration.getCreditFilePath());
-
-        if (in.length() == 0) {
-            LOG.debug("Failed to initialize file input.Check if configuration autowired is null.");
-        }
-
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new FileReader(in));
-
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(httptransport, JSON_FACTORY,
-                clientSecrets, scopes)
-                        .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(configuration.getTokenFolder())))
-                        .setAccessType("offline").build();
-
-        if (flow == null) {
-            //TODO VA by Djer |Log4J| Contyextualise tes messages "Error initializing flow for user : " + userKey
-            LOG.error("Error initializing flow");
-        }
-        return flow.loadCredential(userKey);
+    public Credential getCredentials(final NetHttpTransport httptransport, final String userKey)
+            throws IOException, GeneralSecurityException {
+        return this.getFlow().loadCredential(userKey);
     }
 
     /**
@@ -95,7 +71,6 @@ class GoogleService {
      * @throws IOException if credentials aren't valid or file not found.
      */
     public GoogleAuthorizationCodeFlow getFlow() throws GeneralSecurityException, IOException {
-        //TODO VA by Djer |POO| L'intialisation du tableau serait mieux dans le constructeur. Ici à chaque appel à "getFlow()" la liste est completée avec de "nouvelles" valeurs (et ca sera le MEME quadruplet dupliqué à chaque fois !!!)
         scopes.add(GmailScopes.GMAIL_READONLY);
         scopes.add(PeopleServiceScopes.CONTACTS_READONLY);
         scopes.add(GmailScopes.GMAIL_LABELS);
@@ -104,10 +79,8 @@ class GoogleService {
         File in = new java.io.File(configuration.getCreditFilePath());
 
         if (in.length() == 0) {
-            //TODO VA by Djer |Log4J| Devrait être en "level" "error" (éventuellement "warning")
-            //TODO VA by Djer |Log4J| Il n'est pas utile de dire à "l'admin system" de vérifier le code ("autowired" est du code, PAS de la configuration). Seul le developpeur peut le faire
-            //TODO VA by Djer |Log4J| Contextualise tes messages : "Failed to load App credential file; File is empty in : " + configuration.getCreditFilePath()
-            LOG.debug("Failed to initialize file input.Check if configuration autowired is null.");
+
+            LOG.error("Failed to initialize file input.Check if configuration autowired is null. Config get file path : " + configuration.getCreditFilePath());
         }
 
         Reader targetReader = new FileReader(in);
@@ -120,7 +93,6 @@ class GoogleService {
         if (flow == null) {
             LOG.error("Error initializing flow");
         }
-
         return flow;
     }
 

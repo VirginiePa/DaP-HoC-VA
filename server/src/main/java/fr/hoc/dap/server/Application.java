@@ -1,6 +1,6 @@
 /**
  * //TODO VA by Djer |JavaDoc| Ce bloque de commentaire n'est pas de la JavaDoc "officiel". LE @Author est en général préiciser sur la CLasse. Ce bloque de commentaire sert pour donner des informations sur le fichier (en général la License)
- * @author Virginie et Armand.
+ * 
  *
  */
 package fr.hoc.dap.server;
@@ -16,6 +16,7 @@ import fr.hoc.dap.server.service.Config;
  * Application permettant de récupérer les e-mails non lus et le dernier
  * évènement pour différents users Google. Possibilité d'ajouter un nouvel usere
  * Point d'entrée de l'application.
+ * @author Virginie et Armand.
  */
 @SpringBootApplication
 public class Application {

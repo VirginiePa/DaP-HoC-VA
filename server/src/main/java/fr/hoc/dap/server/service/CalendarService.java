@@ -1,8 +1,3 @@
-//TODO VA by Djer |JavaDoc| Devrait être sur classe
-/**
- * @author Virginie et Armand.
- *
- */
 package fr.hoc.dap.server.service;
 
 import java.io.IOException;
@@ -21,11 +16,13 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
-/** Pour se connecter au service Calendar et récupérer les évènements. */
+/**
+ * Pour se connecter au service Calendar et récupérer les évènements.
+ * @author Virginie et Armand.
+ */
 @Service
 public final class CalendarService extends GoogleService {
-    //TODO VA by Djer |JavaDoc| "Logger" serait suffisant
-    /** instanciates the log manager. */
+    /** Logger. */
     private static final Logger LOG = LogManager.getLogger();
 
     /** declare the max number of events as a constant. */
@@ -40,8 +37,7 @@ public final class CalendarService extends GoogleService {
      * message.
      * @throws IOException if credentials aren't valid or file not found.
      */
-    //TODO VA by Djer |POO| "buildService" serait mieux
-    public Calendar getService(final String userKey) throws GeneralSecurityException, IOException {
+    public Calendar buildService(final String userKey) throws GeneralSecurityException, IOException {
         final NetHttpTransport httptransport = GoogleNetHttpTransport.newTrustedTransport();
         return new Calendar.Builder(httptransport, JSON_FACTORY, getCredentials(httptransport, userKey))
                 .setApplicationName(getConfig().getAppName()).build();
@@ -51,46 +47,37 @@ public final class CalendarService extends GoogleService {
      *  //TODO VA by Djer |JavaDoc| Cette description ne semble pas correspondre à la méthode
      * Creates an authorized Credential object.
      *
-     * @param userKey : compte Google. //TODO VA by Djer |JavaDoc| "compte DaP"
+     * @param userKey : compte DaP.
      * @return the next 10 events from the primary calendar.
      * @param maxResults : nombre d'évènements max, ici = 10.
      * @throws IOException if credentials aren't valid or file not found.
      * @throws GeneralSecurityException Constructs a GeneralSecurityException with the specified detail
      * message.
      */
-    //TODO VA by Djer |POO| Si tu porposes a l'appelant de definir le nbMax, il faut l'utiliser dans ton code !
-    public List<String> getNextEvents(final Integer maxResults, final String userKey)
+    public List<String> getNextEvents(final String userKey)
             throws IOException, GeneralSecurityException {
         DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = getService(userKey).events().list("primary").setMaxResults(NBMAX).setTimeMin(now)
+        Events events = buildService(userKey).events().list("primary").setMaxResults(NBMAX).setTimeMin(now)
                 .setOrderBy("startTime").setSingleEvents(true).execute();
 
-        //TODO VA by Djer |POO| Pas top comme nom de varaible, "result" ou "eventsInfo" serait mieux
-        List<String> test = new ArrayList<String>();
+        List<String> eventsInfo = new ArrayList<String>();
         List<Event> items = events.getItems();
         if (items.isEmpty()) {
-            //TODO VA by Djer |Log4J| Ca n'est pas vraiment uen "error", l'utilisateur a le droit de ne pas avoir d'évènnements à venir. Le "level" Info serait plus adapté
-            LOG.error("items list is empty");
+            LOG.info("items list is empty");
         } else {
-            LOG.info("upcoming events found");
-            //TODO VA by Djer |POO| en général on utilise "i" poour un compte. "eventindexAnalysed" serait aussi pas mal
-            int a = 0;
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
+            for (Event eventIndexAnalysed : items) {
+                DateTime start = eventIndexAnalysed.getStart().getDateTime();
                 if (start == null) {
-                    start = event.getStart().getDate();
+                    start = eventIndexAnalysed.getStart().getDate();
                 }
-              //TODO VA by Djer |POO| Il existe une méthdoe "add" sans avoir besoi nde préciser l'index (qui ajoute à la fin). On utilise cette version lorsqu'on veux insérer "au milieu" (ou à un autre endroit précis)
-                test.add(a, "event name : " + event.getSummary() + " event date:  " + start + " event status: "
-                        + event.getStatus() + "Event attendees :->" + event.getAttendees());
-                //TODO VA by Djer |POO| Pas de Sysout sur un serveur !!! Utilises une log si nécéssaire
-                System.out.println(test);
-                a++;
+                eventsInfo.add("event name : " + eventIndexAnalysed.getSummary() + " event date:  " + start
+                        + " event status: " + eventIndexAnalysed.getStatus() + "Event attendees :->"
+                        + eventIndexAnalysed.getAttendees());
+                LOG.info("Following items were retrieved : " + "event name : " + eventIndexAnalysed.getSummary()
+                        + " event date:  " + start + " event status: " + eventIndexAnalysed.getStatus()
+                        + "Event attendees :->" + eventIndexAnalysed.getAttendees());
             }
         }
-
-        //TODO VA by Djer |Log4J| Il serait plsu "claire dnas ta log" d'affiche la valeur que tu vas erenvoyer ici (en "info" à priori) plutot que dans ta boucle.
-
-        return test;
+        return eventsInfo;
     }
 }
