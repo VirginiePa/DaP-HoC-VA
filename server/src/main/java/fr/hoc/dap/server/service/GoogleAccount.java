@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +29,14 @@ import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.GenericUrl;
 
+import fr.hoc.dap.server.data.DapUser;
+import fr.hoc.dap.server.data.DapUserRepository;
+
 /** . */
 @Controller
 public class GoogleAccount extends GoogleService {
+    @Autowired
+    private DapUserRepository dapUserRepo;
     /** . */
     private static final Logger LOG = LogManager.getLogger();
 
@@ -141,22 +147,21 @@ public class GoogleAccount extends GoogleService {
      * Add a Google account (user will be prompt to connect and accept required
      * access).
      *
-     * @param userId  the user to store Data
+     * @param userKey  the user to store Data
      * @param request the HTTP request
      * @param session the HTTP session
      * @return the view to Display (on Error)
      * @throws GeneralSecurityException .
      */
-    @RequestMapping("/account/add/{userId}")
-    public String addAccount(@PathVariable final String userId, final HttpServletRequest request,
+    @RequestMapping("/account/add/{userKey}")
+    public String addAccount(@PathVariable final String userKey,@RequestParam final String loginName,final HttpServletRequest request,
             final HttpSession session) throws GeneralSecurityException {
         String response = "errorOccurs";
         GoogleAuthorizationCodeFlow flow;
         Credential credential = null;
         try {
             flow = super.getFlow();
-            credential = flow.loadCredential(userId);
-
+            credential = flow.loadCredential(userKey);
             if (credential != null && credential.getAccessToken() != null) {
                 response = "AccountAlreadyAdded";
             } else {
@@ -164,8 +169,12 @@ public class GoogleAccount extends GoogleService {
                 final AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
                 authorizationUrl.setRedirectUri(buildRedirectUri(request, Config.getoAuth2CallbackUrl()));
                 // store userId in session for CallBack Access
-                session.setAttribute("userId", userId);
+                session.setAttribute("userId", userKey);
                 response = "redirect:" + authorizationUrl.build();
+                DapUser monUser = new DapUser();
+                monUser.setLoginName(loginName);
+                monUser.setUserKey(userKey);
+                dapUserRepo.save(monUser);
             }
         } catch (IOException e) {
             LOG.error("Error while loading credential (or Google Flow)", e);

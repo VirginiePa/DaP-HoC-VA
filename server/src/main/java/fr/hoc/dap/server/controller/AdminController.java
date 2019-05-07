@@ -31,6 +31,9 @@ public class AdminController {
 
     private static final double MSTODAY = 86400000;
 
+    //    @Value("${LoginName.message}")
+    //    private String message;
+
     //TODO VA by Djer |JavaDoc| Il ne faut pas documenter l'annotation, mais la méthode qui est en dessous (que vous avez deja partiellement fait)
     /** for mapping web request : localhost:8080/admin.
      * //TODO VA by Djer |JavaDoc| Non ! Return une Vue. Ce que produit cette vue peut changer, sans pour autant que l'on doivent changer cette JavaDoc
@@ -56,6 +59,7 @@ public class AdminController {
                     value.setExpirationTimeMilliseconds((long) (value.getExpirationTimeMilliseconds() / MSTODAY));
                 }
                 userMaps.put(aKey, value);
+
             } catch (Exception e) {
                 LOG.error("Error while getting credentials :" + e);
             }
